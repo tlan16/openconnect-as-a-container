@@ -34,7 +34,7 @@ sh build.sh 3.1.4.2
 Or, build the image with `docker` with BuiltKit enabled:
 
 ```Shell
-DOCKER_BUILDKIT=1 docker build --build-arg S6_OVERLAY_VERSION="3.1.4.2" -t ducmthai/openconnect:latest .
+DOCKER_BUILDKIT=1 docker build --build-arg S6_OVERLAY_VERSION="3.1.4.2" -t tlan16/openconnect:latest .
 ```
 
 Alternatively, use `docker-compose build`:
@@ -85,7 +85,7 @@ docker network create openconnect --subnet=10.30.0.1/16
 ### Start with `docker run`
 
 ```Shell
-docker build -t ducmthai/openconnect .
+docker build -t tlan16/openconnect .
 docker run -d \
 --cap-add=NET_ADMIN \
 --device=/dev/net/tun \
@@ -105,7 +105,7 @@ docker run -d \
 -v "$(pwd)"/vpntoken:/vpn/token \
 -p 3128:3128 \
 -p 3129:3129 \
-ducmthai/openconnect:latest
+tlan16/openconnect:latest
 ```
 
 ### Start with `docker-compose`
