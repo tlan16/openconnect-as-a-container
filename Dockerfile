@@ -13,7 +13,8 @@ ARG THREE_PROXY_URL
 ADD ${THREE_PROXY_URL} /${THREE_PROXY_BRANCH}.tar.gz
 
 RUN --mount=type=cache,target=/etc/apk/cache \
-  apk add --update \
+  apk update \
+  && apk add \
       alpine-sdk \
       bash \
       linux-headers \
@@ -64,8 +65,8 @@ FROM alpine:${ALPINE_VERSION}
 ARG THREE_PROXY_BRANCH
 
 RUN --mount=type=cache,target=/etc/apk/cache \
-  apk upgrade --update \
-    && apk --update add \
+  apk update \
+    && apk add \
         bash \
         tzdata \
         openconnect \
