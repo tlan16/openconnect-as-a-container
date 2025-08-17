@@ -18,7 +18,13 @@ RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
       linux-headers \
       xz \
       curl \
-    && cd / \
+  && apk add --virtual build-dependencies
+      build-base
+      gcc
+      wget
+      git
+
+RUN cd / \
     && tar -xf ${THREE_PROXY_BRANCH}.tar.gz \
     && cd 3proxy-${THREE_PROXY_BRANCH} \
     && make -f Makefile.Linux \
