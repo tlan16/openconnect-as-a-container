@@ -4,7 +4,7 @@ ARG THREE_PROXY_BRANCH=0.9.4
 ARG THREE_PROXY_URL=${THREE_PROXY_REPO}/archive/${THREE_PROXY_BRANCH}.tar.gz
 
 # Build 3proxy
-FROM alpine AS builder
+FROM alpine:edge AS builder
 ARG THREE_PROXY_REPO
 ARG THREE_PROXY_BRANCH
 ARG THREE_PROXY_URL
@@ -59,7 +59,7 @@ RUN chmod +x /root-out/opt/utils/healthcheck.sh \
     && chmod +x /root-out/etc/cont-init.d/01-contcfg \
     && chmod +x /root-out/etc/cont-init.d/30-occfg
 
-FROM alpine
+FROM alpine:edge
 ARG THREE_PROXY_BRANCH
 
 RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
