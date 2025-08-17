@@ -12,7 +12,8 @@ ARG THREE_PROXY_BRANCH
 ARG THREE_PROXY_URL
 ADD ${THREE_PROXY_URL} /${THREE_PROXY_BRANCH}.tar.gz
 
-RUN apk add --update \
+RUN --mount=type=cache,target=/etc/apk/cache \
+  && apk add --update \
       alpine-sdk \
       bash \
       linux-headers \
@@ -23,7 +24,6 @@ RUN apk add --update \
     && cd 3proxy-${THREE_PROXY_BRANCH} \
     && make -f Makefile.Linux \
     && mkdir /root-out
-
 
 # set version for s6 overlay
 ARG S6_OVERLAY_VERSION="3.1.4.2"
@@ -63,13 +63,13 @@ RUN chmod +x /root-out/opt/utils/healthcheck.sh \
 FROM alpine:${ALPINE_VERSION}
 ARG THREE_PROXY_BRANCH
 
-RUN apk upgrade --update --no-cache \
-    && apk --update --no-cache add \
+RUN --mount=type=cache,target=/etc/apk/cache \
+  && apk upgrade --update \
+    && apk --update add \
         bash \
         tzdata \
         openconnect \
-        dnsmasq \
-    && rm -rf /var/cache/apk/*
+        dnsmasq
 
 COPY --from=builder /3proxy-${THREE_PROXY_BRANCH}/bin /usr/local/bin
 COPY --from=builder /root-out /
