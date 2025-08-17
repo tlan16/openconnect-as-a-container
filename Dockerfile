@@ -1,6 +1,6 @@
 # 3proxy version
 ARG THREE_PROXY_REPO=https://github.com/3proxy/3proxy
-ARG THREE_PROXY_BRANCH=0.9.4
+ARG THREE_PROXY_BRANCH=0.9.5
 ARG THREE_PROXY_URL=${THREE_PROXY_REPO}/archive/${THREE_PROXY_BRANCH}.tar.gz
 
 # Build 3proxy
