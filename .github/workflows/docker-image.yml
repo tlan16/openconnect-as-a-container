@@ -27,14 +27,14 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v6
         with:
           push: true
           tags: tlan16/openconnect:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - uses: peter-evans/dockerhub-description@v3
+      - uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
