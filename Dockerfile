@@ -18,10 +18,10 @@ RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
       linux-headers \
       xz \
       curl \
-  && apk add --virtual build-dependencies
-      build-base
-      gcc
-      wget
+  && apk add --virtual build-dependencies \
+      build-base \
+      gcc \
+      wget \
       git
 
 RUN cd / \
