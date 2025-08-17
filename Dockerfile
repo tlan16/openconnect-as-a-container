@@ -4,11 +4,13 @@ ARG THREE_PROXY_BRANCH=0.9.5
 ARG THREE_PROXY_URL=${THREE_PROXY_REPO}/archive/${THREE_PROXY_BRANCH}.tar.gz
 
 # Build 3proxy
-FROM alpine:edge AS builder
+FROM alpine AS builder
 ARG THREE_PROXY_REPO
 ARG THREE_PROXY_BRANCH
 ARG THREE_PROXY_URL
 ADD ${THREE_PROXY_URL} /${THREE_PROXY_BRANCH}.tar.gz
+ENV CCACHE_DIR=/ccache
+RUN mkdir /ccache
 
 RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
   apk update \
@@ -26,7 +28,8 @@ RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
       gcompat \
       libstdc++
 
-RUN cd / \
+RUN --mount=type=cache,target=/ccache,sharing=locked \
+  cd / \
     && tar -xf ${THREE_PROXY_BRANCH}.tar.gz \
     && cd 3proxy-${THREE_PROXY_BRANCH} \
     && make -f Makefile.Linux \
@@ -67,7 +70,7 @@ RUN chmod +x /root-out/opt/utils/healthcheck.sh \
     && chmod +x /root-out/etc/cont-init.d/01-contcfg \
     && chmod +x /root-out/etc/cont-init.d/30-occfg
 
-FROM alpine:edge
+FROM alpine
 ARG THREE_PROXY_BRANCH
 
 RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
