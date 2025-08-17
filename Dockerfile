@@ -22,7 +22,9 @@ RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
       build-base \
       gcc \
       wget \
-      git
+      git \
+      gcompat \
+      libstdc++
 
 RUN cd / \
     && tar -xf ${THREE_PROXY_BRANCH}.tar.gz \
