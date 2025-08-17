@@ -10,7 +10,7 @@ ARG THREE_PROXY_BRANCH
 ARG THREE_PROXY_URL
 ADD ${THREE_PROXY_URL} /${THREE_PROXY_BRANCH}.tar.gz
 
-RUN --mount=type=cache,target=/etc/apk/cache \
+RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
   apk update \
   && apk add \
       alpine-sdk \
@@ -62,7 +62,7 @@ RUN chmod +x /root-out/opt/utils/healthcheck.sh \
 FROM alpine
 ARG THREE_PROXY_BRANCH
 
-RUN --mount=type=cache,target=/etc/apk/cache \
+RUN --mount=type=cache,target=/etc/apk/cache,sharing=locked \
   apk update \
     && apk add \
         bash \
