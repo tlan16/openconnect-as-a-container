@@ -1,12 +1,10 @@
-# Alpine version
-ARG ALPINE_VERSION=3.22.1
 # 3proxy version
 ARG THREE_PROXY_REPO=https://github.com/3proxy/3proxy
 ARG THREE_PROXY_BRANCH=0.9.4
 ARG THREE_PROXY_URL=${THREE_PROXY_REPO}/archive/${THREE_PROXY_BRANCH}.tar.gz
 
 # Build 3proxy
-FROM alpine:${ALPINE_VERSION} AS builder
+FROM alpine AS builder
 ARG THREE_PROXY_REPO
 ARG THREE_PROXY_BRANCH
 ARG THREE_PROXY_URL
@@ -61,7 +59,7 @@ RUN chmod +x /root-out/opt/utils/healthcheck.sh \
     && chmod +x /root-out/etc/cont-init.d/01-contcfg \
     && chmod +x /root-out/etc/cont-init.d/30-occfg
 
-FROM alpine:${ALPINE_VERSION}
+FROM alpine
 ARG THREE_PROXY_BRANCH
 
 RUN --mount=type=cache,target=/etc/apk/cache \
