@@ -13,7 +13,7 @@ ARG THREE_PROXY_URL
 ADD ${THREE_PROXY_URL} /${THREE_PROXY_BRANCH}.tar.gz
 
 RUN --mount=type=cache,target=/etc/apk/cache \
-  && apk add --update \
+  apk add --update \
       alpine-sdk \
       bash \
       linux-headers \
