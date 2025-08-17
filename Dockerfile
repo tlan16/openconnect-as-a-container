@@ -6,7 +6,7 @@ ARG THREE_PROXY_BRANCH=0.9.4
 ARG THREE_PROXY_URL=${THREE_PROXY_REPO}/archive/${THREE_PROXY_BRANCH}.tar.gz
 
 # Build 3proxy
-FROM alpine:${ALPINE_VERSION} as builder
+FROM alpine:${ALPINE_VERSION} AS builder
 ARG THREE_PROXY_REPO
 ARG THREE_PROXY_BRANCH
 ARG THREE_PROXY_URL
@@ -64,7 +64,7 @@ FROM alpine:${ALPINE_VERSION}
 ARG THREE_PROXY_BRANCH
 
 RUN --mount=type=cache,target=/etc/apk/cache \
-  && apk upgrade --update \
+  apk upgrade --update \
     && apk --update add \
         bash \
         tzdata \
